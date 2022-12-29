@@ -17,13 +17,13 @@ class UserRepositoryDio implements UserRepository {
           .get<List>('https://5f7cba02834b5c0016b058aa.mockapi.io/api/users');
 
       return response.data?.map((e) => User.fromMap(e)).toList() ?? [];
-    } on DioError catch (e) {
+    } on DioError catch (e, s) {
       // O DioError possui diversas informações que podem ser usadas nos logs.
-      log('DioError no findAllUsers', error: e);
+      log('DioError no findAllUsers', error: e, stackTrace: s);
       log('Status: ${e.response?.statusCode}');
       rethrow;
-    } catch (e) {
-      log('Erro no findAllUsers', error: e);
+    } catch (e, s) {
+      log('Erro no findAllUsers', error: e, stackTrace: s);
       rethrow;
     }
   }
